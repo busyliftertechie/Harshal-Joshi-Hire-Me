@@ -6,6 +6,28 @@ declare global {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Dark mode toggle logic
+    const themeToggle = document.getElementById('checkbox') as HTMLInputElement;
+    if (themeToggle) {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+
     // On-scroll animation logic
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (animatedElements.length > 0) {
