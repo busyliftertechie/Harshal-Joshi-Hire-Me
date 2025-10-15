@@ -326,6 +326,10 @@ section {
     margin-bottom: 0;
 }
 
+#expandable-cert {
+    margin-top: 1.5rem;
+}
+
 /* Footer */
 footer {
     text-align: center;
