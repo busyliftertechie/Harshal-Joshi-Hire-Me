@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Udaipur, Rajasthan, India',
                 '+91-8114439253',
                 'harshaljoshii@outlook.com',
-                'linkedin.com/in/harshal-joshi-7a421217a'
+                'linkedin.com/in/harshaljoshi-data-ninja'
             ].join(' | ');
             doc.text(contactInfo, pageWidth / 2, yPos, { align: 'center' });
             yPos += sectionSpacing;
