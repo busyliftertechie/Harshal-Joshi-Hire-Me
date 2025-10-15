@@ -213,6 +213,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Contact Form Modal Logic
+    const modal = document.getElementById('contact-modal') as HTMLElement;
+    const openModalBtn = document.getElementById('open-contact-form') as HTMLButtonElement;
+    const closeModalBtn = document.querySelector('.close-button') as HTMLElement;
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+
+    if (modal && openModalBtn && closeModalBtn && contactForm) {
+        const showModal = () => {
+            if (modal) modal.style.display = 'block';
+        };
+
+        const hideModal = () => {
+            if (modal) modal.style.display = 'none';
+        };
+
+        openModalBtn.addEventListener('click', showModal);
+        closeModalBtn.addEventListener('click', hideModal);
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
+
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const name = (document.getElementById('name') as HTMLInputElement).value;
+            const email = (document.getElementById('email') as HTMLInputElement).value;
+            const company = (document.getElementById('company') as HTMLInputElement).value;
+            const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+
+            const subject = encodeURIComponent(`Contact from ${name} via Portfolio`);
+            const body = encodeURIComponent(
+`Name: ${name}
+Email: ${email}
+Company: ${company || 'N/A'}
+
+Message:
+${message}`
+            );
+
+            window.location.href = `mailto:harshaljoshii@outlook.com?subject=${subject}&body=${body}`;
+
+            hideModal();
+            contactForm.reset();
+        });
+    }
 });
 
 // Add export {} to treat this file as a module. This allows global augmentation.
