@@ -6,7 +6,7 @@ declare global {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Dark mode toggle logic
+    // --- Dark Mode Toggle ---
     const themeToggle = document.getElementById('checkbox') as HTMLInputElement;
     if (themeToggle) {
         const savedTheme = localStorage.getItem('theme');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // On-scroll animation logic
+    // --- On-scroll Animations ---
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (animatedElements.length > 0) {
         const observer = new IntersectionObserver((entries) => {
@@ -46,8 +46,58 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(element);
         });
     }
+    
+    // --- Sticky Navbar & Active Link Highlighting ---
+    const navbar = document.querySelector('.navbar') as HTMLElement;
+    const navMenu = document.querySelector('.nav-menu') as HTMLElement;
+    const navToggle = document.getElementById('nav-toggle') as HTMLElement;
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+    
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    }
 
-    // PDF generation logic
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${id}`) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-30% 0px -70% 0px' });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+    });
+
+
+    // --- PDF Generation ---
     const downloadCvButton = document.getElementById('download-cv');
     if (downloadCvButton) {
         downloadCvButton.addEventListener('click', () => {
@@ -64,14 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const lineSpacing = 7;
             const sectionSpacing = 10;
 
-            // Helper to add text and wrap if necessary
             const addText = (text: string, options?: object) => {
                 const splitText = doc.splitTextToSize(text, pageWidth - margin * 2);
                 doc.text(splitText, margin, yPos, options);
-                yPos += (splitText.length * lineSpacing) - (lineSpacing - 5); // Adjust spacing
+                yPos += (splitText.length * lineSpacing) - (lineSpacing - 5);
             };
             
-            // --- Header ---
             doc.setFontSize(22).setFont(undefined, 'bold');
             doc.text('Harshal Joshi', pageWidth / 2, yPos, { align: 'center' });
             yPos += lineSpacing;
@@ -86,19 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text(contactInfo, pageWidth / 2, yPos, { align: 'center' });
             yPos += sectionSpacing;
 
-            // --- Profile Summary ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Profile Summary', margin, yPos);
             yPos += lineSpacing;
             doc.setFontSize(11).setFont(undefined, 'normal');
-            const summaryEl = document.querySelector<HTMLElement>('#summary p');
-            if (summaryEl) {
-                const summaryText = summaryEl.innerText;
-                addText(summaryText);
-            }
+            const summaryEl = document.querySelector<HTMLElement>('#profile-summary p');
+            if (summaryEl) addText(summaryEl.innerText);
             yPos += sectionSpacing;
 
-            // --- Skills ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Skills', margin, yPos);
             yPos += lineSpacing;
@@ -116,16 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             yPos += sectionSpacing - 2;
             
-            // --- Project Highlights ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Project Highlights', margin, yPos);
             yPos += lineSpacing;
             document.querySelectorAll<HTMLElement>('#projects .card').forEach(project => {
                 doc.setFontSize(12).setFont(undefined, 'bold');
                 const titleEl = project.querySelector<HTMLElement>('h3');
-                if (titleEl) {
-                    addText(titleEl.innerText);
-                }
+                if (titleEl) addText(titleEl.innerText);
                 doc.setFontSize(11).setFont(undefined, 'normal');
                 project.querySelectorAll<HTMLElement>('li').forEach(li => {
                     addText(`- ${li.innerText}`);
@@ -134,55 +174,43 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             yPos += sectionSpacing - 4;
 
-            // --- Certifications ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Certifications', margin, yPos);
             yPos += lineSpacing;
             doc.setFontSize(11).setFont(undefined, 'normal');
-            document.querySelectorAll<HTMLElement>('#certifications .list-container p').forEach(cert => {
+            // FIX: Explicitly type 'cert' as HTMLElement to resolve TypeScript error.
+            document.querySelectorAll<HTMLElement>('#certifications .list-container p').forEach((cert: HTMLElement) => {
                  addText(`- ${cert.innerText}`);
             });
             yPos += sectionSpacing;
             
-            // --- Work Experience ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Work Experience', margin, yPos);
             yPos += lineSpacing;
             document.querySelectorAll<HTMLElement>('#experience .card').forEach(exp => {
                 doc.setFontSize(12).setFont(undefined, 'bold');
                 const titleEl = exp.querySelector<HTMLElement>('h3');
-                if (titleEl) {
-                    addText(titleEl.innerText);
-                }
+                if (titleEl) addText(titleEl.innerText);
                 doc.setFontSize(11).setFont(undefined, 'italic');
                 const companyEl = exp.querySelector<HTMLElement>('.company');
-                if (companyEl) {
-                    addText(companyEl.innerText);
-                }
+                if (companyEl) addText(companyEl.innerText);
                 doc.setFont(undefined, 'normal');
                 const pEl = exp.querySelectorAll<HTMLElement>('p')[1];
-                if (pEl) {
-                    addText(pEl.innerText);
-                }
+                if (pEl) addText(pEl.innerText);
                 yPos += 4;
             });
             yPos += sectionSpacing -4;
 
-            // --- Education ---
             doc.setFontSize(14).setFont(undefined, 'bold');
             doc.text('Education', margin, yPos);
             yPos += lineSpacing;
              document.querySelectorAll<HTMLElement>('#education .card').forEach(edu => {
                 doc.setFontSize(12).setFont(undefined, 'bold');
                 const titleEl = edu.querySelector<HTMLElement>('h3');
-                if (titleEl) {
-                    addText(titleEl.innerText);
-                }
+                if (titleEl) addText(titleEl.innerText);
                 doc.setFontSize(11).setFont(undefined, 'italic');
                 const companyEl = edu.querySelector<HTMLElement>('.company');
-                if (companyEl) {
-                    addText(companyEl.innerText);
-                }
+                if (companyEl) addText(companyEl.innerText);
                 yPos += 4;
             });
 
@@ -190,9 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Project card expand/collapse logic
-    const projectLearnMoreButtons = document.querySelectorAll('.btn-learn-more');
-    projectLearnMoreButtons.forEach(button => {
+    // --- Project Card Expansion ---
+    document.querySelectorAll('.btn-learn-more').forEach(button => {
         button.addEventListener('click', (event) => {
             const currentButton = event.currentTarget as HTMLButtonElement;
             const card = currentButton.closest('.card');
@@ -200,69 +227,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 const details = card.querySelector('.project-details') as HTMLElement;
                 if (details) {
                     const isExpanded = details.classList.contains('expanded');
-                    
                     details.classList.toggle('expanded');
                     currentButton.setAttribute('aria-expanded', String(!isExpanded));
-
-                    if (!isExpanded) {
-                        currentButton.textContent = 'Show Less';
-                    } else {
-                        currentButton.textContent = 'Learn More';
+                    const buttonTextSpan = currentButton.querySelector('span');
+                    if (buttonTextSpan) {
+                         buttonTextSpan.textContent = isExpanded ? 'Learn More' : 'Show Less';
                     }
                 }
             }
         });
     });
 
-    // Contact Form Modal Logic
+    // --- Contact Form Modal ---
     const modal = document.getElementById('contact-modal') as HTMLElement;
-    const openModalBtn = document.getElementById('open-contact-form') as HTMLButtonElement;
+    const openModalBtns = [document.getElementById('open-contact-form'), document.getElementById('open-contact-form-nav')];
     const closeModalBtn = document.querySelector('.close-button') as HTMLElement;
     const contactForm = document.getElementById('contact-form') as HTMLFormElement;
 
-    if (modal && openModalBtn && closeModalBtn && contactForm) {
-        const showModal = () => {
-            if (modal) modal.style.display = 'block';
-        };
+    if (modal && closeModalBtn && contactForm) {
+        const showModal = () => modal.style.display = 'block';
+        const hideModal = () => modal.style.display = 'none';
 
-        const hideModal = () => {
-            if (modal) modal.style.display = 'none';
-        };
-
-        openModalBtn.addEventListener('click', showModal);
+        openModalBtns.forEach(btn => btn?.addEventListener('click', showModal));
         closeModalBtn.addEventListener('click', hideModal);
-
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                hideModal();
-            }
-        });
+        window.addEventListener('click', (event) => { if (event.target === modal) hideModal(); });
 
         contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
-
             const name = (document.getElementById('name') as HTMLInputElement).value;
             const email = (document.getElementById('email') as HTMLInputElement).value;
             const company = (document.getElementById('company') as HTMLInputElement).value;
             const message = (document.getElementById('message') as HTMLTextAreaElement).value;
-
             const subject = encodeURIComponent(`Contact from ${name} via Portfolio`);
-            const body = encodeURIComponent(
-`Name: ${name}
-Email: ${email}
-Company: ${company || 'N/A'}
-
-Message:
-${message}`
-            );
-
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`);
             window.location.href = `mailto:harshaljoshii@outlook.com?subject=${subject}&body=${body}`;
-
             hideModal();
             contactForm.reset();
         });
     }
+
 });
 
-// Add export {} to treat this file as a module. This allows global augmentation.
+// FIX: Convert this file to a module by adding an empty export. This allows `declare global` to be used and fixes errors related to global scope augmentation.
 export {};

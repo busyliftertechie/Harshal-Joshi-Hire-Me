@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harshal Joshi | Data Analyst</title>
+    <title>Harshal's Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,30 +12,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-main">
-                <h1>Harshal Joshi</h1>
-                <div class="header-actions">
-                    <a href="mailto:harshaljoshii@outlook.com" class="btn btn-primary">Hire Me</a>
-                    <a href="#" id="download-cv" class="btn btn-secondary" aria-label="Download Harshal Joshi's Resume">Download CV</a>
-                    <div class="theme-switch-wrapper">
-                        <label class="theme-switch" for="checkbox">
-                            <input type="checkbox" id="checkbox" aria-label="Toggle dark mode" />
-                            <div class="slider round"></div>
-                        </label>
-                    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">Harshal Joshi</a>
+            <div class="nav-menu">
+                <a href="#profile-summary" class="nav-item">Profile Summary</a>
+                <a href="#skills" class="nav-item">Skills</a>
+                <a href="#projects" class="nav-item">Projects</a>
+                <a href="#experience" class="nav-item">Experience</a>
+                <a href="#certifications" class="nav-item">Certifications</a>
+                <a href="#education" class="nav-item">Education</a>
+            </div>
+             <div class="nav-actions">
+                <button id="open-contact-form-nav" class="btn btn-primary">Contact</button>
+                 <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" aria-label="Toggle dark mode" />
+                        <div class="slider round"></div>
+                    </label>
                 </div>
             </div>
-            <div class="contact-info">
-                <span><i class="fas fa-map-marker-alt"></i> Udaipur, Rajasthan, India</span>
-                <span><i class="fas fa-phone-alt"></i> +91-8114439253</span>
-                <span><i class="fas fa-envelope"></i> <a href="mailto:harshaljoshii@outlook.com">harshaljoshii@outlook.com</a></span>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <header id="home">
+             <div class="hero">
+                <h1 class="animate-on-scroll">Harshal Joshi</h1>
+                <p class="subtitle animate-on-scroll">Data Analyst with a Fitness Coach's Perspective</p>
+                <div class="header-actions animate-on-scroll">
+                    <button id="open-contact-form" class="btn btn-primary">Hire Me</button>
+                    <a href="#" id="download-cv" class="btn btn-secondary" aria-label="Download Harshal Joshi's Resume">Download CV</a>
+                </div>
             </div>
         </header>
 
         <main>
-            <section id="summary" class="animate-on-scroll">
+            <section id="profile-summary" class="animate-on-scroll">
                 <h2>Profile Summary</h2>
                 <p>
                     A tech-driven Data Analyst and certified Power BI specialist with expertise in SQL, PostgreSQL (EDB Certified), and Python basics. Proficient in data cleaning, wrangling, and creating compelling visualizations to drive business insights. Combines analytical acumen with 4+ years of experience as a Certified Fitness Coach and CPR certification, bringing a unique perspective on data-backed performance and wellness.
@@ -112,7 +127,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                     <div class="card animate-on-scroll">
@@ -133,7 +148,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                     <div class="card animate-on-scroll">
@@ -154,7 +169,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                     <div class="card animate-on-scroll">
@@ -176,7 +191,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </div>
@@ -208,7 +223,7 @@
                         </ul>
                     </div>
                     <div class="project-actions">
-                        <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                        <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                     </div>
                 </div>
             </section>
@@ -236,7 +251,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                     <div class="card animate-on-scroll">
@@ -256,7 +271,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </div>
@@ -278,7 +293,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                     <div class="card animate-on-scroll">
@@ -294,7 +309,7 @@
                             </ul>
                         </div>
                         <div class="project-actions">
-                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false">Learn More</button>
+                            <button class="btn btn-tertiary btn-learn-more" aria-expanded="false"><span>Learn More</span> <i class="fas fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </div>
@@ -302,15 +317,11 @@
         </main>
 
         <footer>
-            <div class="interests">
-                <h3>Interests</h3>
-                <p>Reading, Singing, Dancing, Cooking, Video Editing (InVideo, CapCut)</p>
-            </div>
             <div class="footer-cta">
                 <h2>Let's connect</h2>
-                <div class="footer-buttons">
-                    <a href="mailto:harshaljoshii@outlook.com" class="btn btn-primary">Email Me</a>
-                    <button id="open-contact-form" class="btn btn-secondary">Contact Form</button>
+                <div class="contact-info">
+                    <span><i class="fas fa-map-marker-alt"></i> Udaipur, Rajasthan, India</span>
+                    <span><i class="fas fa-phone-alt"></i> +91-8114439253</span>
                 </div>
                 <div class="social-links">
                     <a href="mailto:harshaljoshii@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -348,6 +359,6 @@
         </div>
     </div>
 
-    <script src="index.js" defer></script>
+    <script type="module" src="index.js" defer></script>
 </body>
 </html>
